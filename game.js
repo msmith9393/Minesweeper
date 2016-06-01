@@ -15,16 +15,16 @@ Game.prototype.setUpMatrix = function(w, h) {
   }
 
   // place bombs in random squares
-  while (this.bombs > 0) {
+  var needToPlaceBombs = this.bombs;
+  while (needToPlaceBombs > 0) {
     var randomWidth = Math.floor(Math.random() * w);
     var randomHeight = Math.floor(Math.random() * h);
 
     if (!matrix[randomWidth][randomHeight].bomb) {
       matrix[randomWidth][randomHeight].bomb = true;
+      needToPlaceBombs--;
     }
   }
 
   return matrix;
 };
-
-console.log($('#board'));
