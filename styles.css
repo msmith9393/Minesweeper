@@ -1,0 +1,29 @@
+
+
+/* ---------- BOARD ---------- */
+.column {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background: #eee;
+  border: 1px solid black;
+}
+
+.row {
+  margin-bottom: -5px;
+}
+
+#board: {
+  width: 100%;
+  margin: 0 auto;
+}
+
+#container {
+  width: 350px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.column:hover {
+  background: #aaa;
+}
