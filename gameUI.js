@@ -18,10 +18,50 @@ GameUI.prototype.buildBoard = function() {
   }
 };
 
+GameUI.prototype.lost = function() {
+  console.log('YOU LOST');
+  // reveal bombs
+  var matrix = this.newGame.matrix;
+  for (var i = 0; i < matrix.length; i++) {
+    for (var j = 0; j < matrix[i].length; j++) {
+      if (matrix[i][j].bomb === true) {
+        console.log(matrix[i][j])
+        $('.r-' + i + 'c-' + j).addClass('BOMB');
+      }
+    }
+  }
+}
+
+GameUI.prototype.checkClick = function(square) {
+  if (square.surroundingBombs === 0) {
+    // recursively show numbers
+  } else {
+    // reveal number
+    var i = square.coordinates[0]
+    var j = square.coordinates[1]
+    var surroundingBombs = square.surroundingBombs;
+    if (surroundingBombs === 1) {
+      $('.r-' + i + 'c-' + j).text(surroundingBombs + '').addClass('oneBomb');
+    } else if (surroundingBombs === 2) {
+      $('.r-' + i + 'c-' + j).text(surroundingBombs + '').addClass('twoBombs');
+    } else {
+      $('.r-' + i + 'c-' + j).text(surroundingBombs + '').addClass('lotsBombs');
+    }
+  }
+};
+
 GameUI.prototype.leftClick = function(row, col) {
   var square = this.newGame.matrix[row][col];
-  var bomb = square.bomb;
-  console.log(square);
+  if (!square.clicked) {
+    var bomb = square.bomb;
+    square.clicked = true;
+    console.log(square);
+    if (square.bomb) {
+      this.lost();
+    } else {
+      this.checkClick(square);
+    }
+  }
 
   // there is a bomb
     // reveal bombs

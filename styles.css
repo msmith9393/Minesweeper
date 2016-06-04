@@ -2,6 +2,7 @@
 
 /* ---------- BOARD ---------- */
 .column {
+  vertical-align: middle;
   display: inline-block;
   width: 30px;
   height: 30px;
@@ -27,3 +28,13 @@
 .column:hover {
   background: #aaa;
 }
+
+.BOMB {
+  background: red;
+}
+
+.oneBomb { color: green; }
+
+.twoBombs { color: blue; }
+
+.lotsBombs { color: red; }
