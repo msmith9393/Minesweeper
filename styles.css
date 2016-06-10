@@ -38,3 +38,7 @@
 .twoBombs { color: blue; }
 
 .lotsBombs { color: red; }
+
+.noBombs { background-color: #C0C0C0; }
+
+.markedFlag { background-color: green; }

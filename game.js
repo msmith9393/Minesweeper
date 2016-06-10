@@ -30,8 +30,6 @@ Game.prototype.setUpMatrix = function(w, h) {
   return matrix;
 };
 
-
-
 Game.prototype.countSurroundingBombs = function() {
   var max = this.matrix.length - 1;
   for (var i = 0; i < this.matrix.length; i++) {
@@ -40,6 +38,11 @@ Game.prototype.countSurroundingBombs = function() {
       if (i < max && this.matrix[i+1][j].bomb) { this.matrix[i][j].surroundingBombs ++}
       if (j > 0 && this.matrix[i][j-1].bomb) { this.matrix[i][j].surroundingBombs ++}
       if (j < max && this.matrix[i][j+1].bomb) { this.matrix[i][j].surroundingBombs ++}
+
+      if (i < max && j < max && this.matrix[i+1][j+1].bomb) { this.matrix[i][j].surroundingBombs ++}
+      if (i > 0 && j > 0 && this.matrix[i-1][j-1].bomb) { this.matrix[i][j].surroundingBombs ++}
+      if (i < max && j > 0 && this.matrix[i+1][j-1].bomb) { this.matrix[i][j].surroundingBombs ++}
+      if (i > 0 && j < max && this.matrix[i-1][j+1].bomb) { this.matrix[i][j].surroundingBombs ++}
     }
   }
 };

@@ -3,4 +3,5 @@ var Square = function(coordinates) {
   this.bomb = false;
   this.surroundingBombs = 0;
   this.clicked = false;
+  this.markedFlag = false;
 };
