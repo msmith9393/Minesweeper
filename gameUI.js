@@ -3,8 +3,22 @@ var GameUI = function($board, bombs) {
   this.bombs = bombs || 15;
   this.newGame = new Game(10, 10, this.bombs);
   this.flagCount = this.newGame.bombs;
+  this.markedFlags = [];
   this.buildBoard();
   this.registerEvents();
+  this.countDown();
+};
+
+GameUI.prototype.countDown = function() {
+  var time = parseInt($('.timer').text());
+  var countDown = setInterval(function() {
+    time--;
+    $('.timer').text(time);
+    if (time === 0) {
+      clearInterval(countDown);
+      alert('You ran out of time')
+    }
+  }, 1000)
 };
 
 GameUI.prototype.buildBoard = function() {
@@ -119,6 +133,7 @@ GameUI.prototype.registerEvents = function() {
     var row = parseInt(string[rowIndex]);
     var col = parseInt(string[colIndex]);
     $('.r-' + row + 'c-' + col).text('F').addClass('markedFlag');
+    gameThis.markedFlags.push([row, col]);
     var square = gameThis.newGame.matrix[row][col];
     square.markedFlag = true;
     gameThis.flagCount ++;
@@ -126,11 +141,23 @@ GameUI.prototype.registerEvents = function() {
     var newFlagNum = parseInt(flags) - 1;
     $('.flags').text(newFlagNum);
     if (newFlagNum === 0) {
-      console.log('YOU need to check for win!')
+      var win = gameThis.markedFlags.reduce(function(acc, curr) {
+        if (!acc) {
+          return acc;
+        }
+        return gameThis.newGame.matrix[curr[0]][curr[1]].bomb;
+      }, true);
+      if (win) {
+        alert('Congratulations you marked all the right flags!');
+      } else {
+        alert('I am sorry you did not mark the correct flags');
+      }
     }
-    // mark as flag
-    // decrement flag count
-    // once flag count gets to zero
-    // check for win if all the marked flags are bombs then they win otherwise they made a mistake
+  });
+
+  $('.restart').on('click', function() {
+    $('.flags').text(15);
+    gameThis.$board.empty();
+    var game_UI = new GameUI($('#board'), 15);
   });
 };
