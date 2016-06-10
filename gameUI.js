@@ -16,7 +16,7 @@ GameUI.prototype.countDown = function() {
     $('.timer').text(time);
     if (time === 0) {
       clearInterval(countDown);
-      alert('You ran out of time')
+      alert('You ran out of time');
     }
   }, 1000)
 };
@@ -34,7 +34,7 @@ GameUI.prototype.buildBoard = function() {
 };
 
 GameUI.prototype.lost = function() {
-  console.log('YOU LOST');
+  alert('YOU LOST');
   // reveal bombs
   var matrix = this.newGame.matrix;
   for (var i = 0; i < matrix.length; i++) {
@@ -111,6 +111,12 @@ GameUI.prototype.leftClick = function(row, col) {
   }
 };
 
+GameUI.prototype.restart = function() {
+  $('.flags').text(15);
+  $('.timer').text(100);
+  gameThis.$board.empty();
+  var game_UI = new GameUI($('#board'), 15);
+};
 
 GameUI.prototype.registerEvents = function() {
   var gameThis = this;
@@ -156,8 +162,6 @@ GameUI.prototype.registerEvents = function() {
   });
 
   $('.restart').on('click', function() {
-    $('.flags').text(15);
-    gameThis.$board.empty();
-    var game_UI = new GameUI($('#board'), 15);
+    gameThis.restart();
   });
 };
