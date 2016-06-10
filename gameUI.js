@@ -114,7 +114,7 @@ GameUI.prototype.leftClick = function(row, col) {
 GameUI.prototype.restart = function() {
   $('.flags').text(15);
   $('.timer').text(100);
-  gameThis.$board.empty();
+  this.$board.empty();
   var game_UI = new GameUI($('#board'), 15);
 };
 
